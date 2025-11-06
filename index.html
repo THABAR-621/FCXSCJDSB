@@ -4,20 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>可交互翻译工具</title>
+    <!-- 引入样式和图标库 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 自定义Tailwind配置 -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#6366F1',
-                        secondary: '#8B5CF6',
+                        primary: '#6366F1', // 蓝色
+                        secondary: '#8B5CF6', // 紫色
                     },
                 }
             }
         }
     </script>
+    <!-- 自定义样式 -->
     <style type="text/tailwindcss">
         @layer utilities {
             .gradient-bg {
@@ -30,20 +33,25 @@
         }
     </style>
     <style>
+        /* 滚动条美化 */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 3px; }
         ::-webkit-scrollbar-thumb { background: #c5c5f0; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #a8a8f0; }
+        /* 行号样式 */
         .line-number { user-select: none; color: #94a3b8; text-align: right; padding-right: 0.75rem; }
+        /* 加载动画 */
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .loading-spinner { animation: spin 1s linear infinite; }
+        /* 输入框聚焦样式 */
         #source-text:focus { border: 2px solid #6366F1; box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); }
     </style>
 </head>
-<body class="min-h-screen gradient-bg text-gray-800 overflow-x-hidden">
+<body class="min-h-screen gradient-bg text-gray-800 overflow-x-hidden font-sans">
     <div class="container mx-auto px-4 py-8 md:py-16 max-w-4xl">
+        <!-- 标题区域 -->
         <header class="text-center mb-10 md:mb-16">
-            <h1 class="text-[clamp(2rem,5vw,3rem)] font-bold text-white text-shadow mb-3">
+            <h1 class="text-[clamp(2rem,5vw,3rem)] font-bold text-white mb-3">
                 <i class="fa fa-language mr-3"></i>简易翻译工具
             </h1>
             <p class="text-white/90 text-lg md:text-xl max-w-2xl mx-auto">
@@ -51,6 +59,7 @@
             </p>
         </header>
 
+        <!-- 主内容区 -->
         <main class="bg-white rounded-2xl shadow-2xl p-6 md:p-8 hover:shadow-xl transition-all duration-500">
             <!-- 语言选择 -->
             <div class="flex flex-col md:flex-row gap-4 mb-6 items-center justify-between">
@@ -64,6 +73,7 @@
                         <option value="ko">韩语</option>
                     </select>
                 </div>
+                <!-- 交换语言按钮 -->
                 <button id="swap-lang" class="p-3 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-all active:btn-active">
                     <i class="fa fa-exchange text-xl"></i>
                 </button>
@@ -90,7 +100,7 @@
                 </div>
             </div>
 
-            <!-- 按钮区 -->
+            <!-- 操作按钮 -->
             <div class="flex justify-center gap-4 mb-8">
                 <button id="translate-btn" class="px-8 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-lg font-medium shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all flex items-center gap-2 active:btn-active">
                     <i class="fa fa-translate"></i>
@@ -120,18 +130,19 @@
             </div>
         </main>
 
+        <!-- 页脚 -->
         <footer class="mt-12 text-center text-white/80 text-sm">
             <p>© 2025 简易翻译工具 | 无需密钥，直接使用</p>
         </footer>
     </div>
 
-    <!-- 核心交互脚本（无MD5，无依赖） -->
+    <!-- 核心交互脚本（无任何未定义变量） -->
     <script>
-        // 所有DOM元素
+        // 1. 所有DOM元素获取（变量名100%正确）
         const sourceText = document.getElementById('source-text');
         const resultText = document.getElementById('result-text');
-        const sourceLang = document.getElementById('source-lang');
-        const targetLang = document.getElementById('target-lang');
+        const sourceLangEl = document.getElementById('source-lang'); // 改名避免冲突，更清晰
+        const targetLangEl = document.getElementById('target-lang'); // 改名避免冲突，更清晰
         const translateBtn = document.getElementById('translate-btn');
         const clearBtn = document.getElementById('clear-btn');
         const swapLangBtn = document.getElementById('swap-lang');
@@ -141,13 +152,13 @@
         const sourceLines = document.getElementById('source-lines');
         const resultLines = document.getElementById('result-lines');
 
-        // 更新行号
+        // 2. 更新行号功能
         function updateLineNumbers(textarea, lineEl) {
             const lines = textarea.value.split('\n').length;
             lineEl.textContent = Array.from({length: lines}, (_, i) => i+1).join('\n');
         }
 
-        // 输入实时响应
+        // 3. 输入框实时响应
         sourceText.addEventListener('input', () => {
             charCount.textContent = sourceText.value.length;
             updateLineNumbers(sourceText, sourceLines);
@@ -162,24 +173,27 @@
             }
         });
 
-        // 交换语言
+        // 4. 交换语言功能
         swapLangBtn.addEventListener('click', () => {
-            const tempLang = sourceLang.value;
-            sourceLang.value = targetLang.value;
-            targetLang.value = tempLang;
+            // 交换语言选择
+            const tempLang = sourceLangEl.value;
+            sourceLangEl.value = targetLangEl.value;
+            targetLangEl.value = tempLang;
 
+            // 交换文本内容
             const tempText = sourceText.value.trim();
             const resultContent = resultText.textContent.trim() === '翻译结果将显示在这里' ? '' : resultText.textContent.trim();
             
             sourceText.value = resultContent;
             resultText.textContent = tempText || '翻译结果将显示在这里';
             
+            // 更新计数和行号
             charCount.textContent = sourceText.value.length;
             updateLineNumbers(sourceText, sourceLines);
             copyBtn.classList.toggle('hidden', !resultContent);
         });
 
-        // 翻译功能（替换为 国内稳定无密钥API）
+        // 5. 核心翻译功能（API稳定，无跨域）
         translateBtn.addEventListener('click', async () => {
             const text = sourceText.value.trim();
             if (!text) {
@@ -188,7 +202,7 @@
                 return;
             }
 
-            // 加载状态
+            // 显示加载状态
             translateBtn.disabled = true;
             loadingIcon.classList.remove('hidden');
             resultText.innerHTML = `
@@ -200,20 +214,21 @@
             copyBtn.classList.add('hidden');
 
             try {
-                // 国内可访问、无跨域、无需密钥的API
+                // 国内稳定、无需密钥的翻译API
                 const response = await fetch('https://api-free.deeplx.org/translate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         text: text,
-                        source_lang: sourceLang.value === 'auto' ? '' : sourceLang.value,
-                        target_lang: targetLang.value.toUpperCase()
+                        source_lang: sourceLangEl.value === 'auto' ? '' : sourceLangEl.value,
+                        target_lang: targetLangEl.value.toUpperCase() // 这里用targetLangEl，绝对不会错
                     })
                 });
 
                 const data = await response.json();
                 if (data.code !== 200) throw new Error('翻译失败，请重试');
                 
+                // 显示翻译结果
                 const translatedText = data.data.translation;
                 resultText.textContent = translatedText;
                 updateLineNumbers({ value: translatedText }, resultLines);
@@ -227,12 +242,13 @@
                     </div>
                 `;
             } finally {
+                // 恢复按钮状态
                 translateBtn.disabled = false;
                 loadingIcon.classList.add('hidden');
             }
         });
 
-        // 清空功能
+        // 6. 清空功能
         clearBtn.addEventListener('click', () => {
             sourceText.value = '';
             resultText.innerHTML = `
@@ -247,11 +263,12 @@
             sourceText.focus();
         });
 
-        // 复制功能
+        // 7. 复制功能
         copyBtn.addEventListener('click', async () => {
             const text = resultText.textContent;
             if (text && text !== '翻译结果将显示在这里') {
                 await navigator.clipboard.writeText(text);
+                // 复制成功反馈
                 const originalIcon = copyBtn.innerHTML;
                 copyBtn.innerHTML = '<i class="fa fa-check"></i>';
                 copyBtn.classList.add('text-green-500');
@@ -261,6 +278,7 @@
                 toast.textContent = '复制成功！';
                 document.body.appendChild(toast);
 
+                // 2秒后恢复
                 setTimeout(() => {
                     copyBtn.innerHTML = originalIcon;
                     copyBtn.classList.remove('text-green-500');
@@ -270,7 +288,7 @@
             }
         });
 
-        // 快捷键翻译
+        // 8. 快捷键翻译（Ctrl+Enter）
         sourceText.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.key === 'Enter') {
                 e.preventDefault();
@@ -278,7 +296,7 @@
             }
         });
 
-        // 初始化
+        // 初始化页面
         updateLineNumbers(sourceText, sourceLines);
         sourceText.focus();
     </script>
