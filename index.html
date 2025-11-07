@@ -42,7 +42,7 @@
             gap: 20px;
         }
         
-        /* 输入输出框样式 */
+        /* 输入输出框样式 - 改为白色背景 */
         .input-section,
         .output-section {
             background-color: white;
@@ -51,7 +51,7 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
         
-        /* 文本区域样式 */
+        /* 文本区域样式 - 背景改为白色，只改变文字颜色 */
         textarea {
             width: 100%;
             min-height: 150px;
@@ -62,18 +62,17 @@
             outline: none;
             border-radius: 8px;
             transition: box-shadow 0.3s ease;
+            background-color: white; /* 确保背景是白色 */
         }
         
-        /* 输入框 - 浅灰色带透明度 */
+        /* 输入框 - 浅灰色文字，不带透明度 */
         #source-text {
-            background-color: rgba(200, 200, 200, 0.5);
-            color: #333;
+            color: #666666; /* 浅灰色文字 */
         }
         
-        /* 输出框 - 浅绿色带透明度 */
+        /* 输出框 - 偏蓝的绿色文字，不带透明度 */
         #target-text {
-            background-color: rgba(144, 238, 144, 0.5);
-            color: #2d6a4f;
+            color: #2a9d8f; /* 偏蓝的绿色文字，与蓝紫背景更和谐 */
         }
         
         textarea:focus {
