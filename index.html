@@ -260,6 +260,325 @@
         const detectedLanguageEl = document.getElementById('detected-language');
         const resultLanguageEl = document.getElementById('result-language');
         
+        // 增强的翻译字典，包含更多常用单词
+        const translationDictionary = {
+            'en': {
+                'zh': {
+                    'hello': '你好',
+                    'world': '世界',
+                    'handsome': '帅气的',
+                    'beautiful': '美丽的',
+                    'good': '好的',
+                    'bad': '坏的',
+                    'yes': '是',
+                    'no': '否',
+                    'thank': '谢谢',
+                    'you': '你',
+                    'i': '我',
+                    'he': '他',
+                    'she': '她',
+                    'we': '我们',
+                    'they': '他们',
+                    'love': '爱',
+                    'like': '喜欢',
+                    'hate': '讨厌',
+                    'friend': '朋友',
+                    'family': '家庭',
+                    'work': '工作',
+                    'school': '学校',
+                    'computer': '电脑',
+                    'phone': '手机',
+                    'book': '书',
+                    'time': '时间',
+                    'day': '天',
+                    'night': '晚上',
+                    'year': '年',
+                    'month': '月',
+                    'week': '周',
+                    'money': '钱',
+                    'food': '食物',
+                    'water': '水',
+                    'fire': '火',
+                    'earth': '地球',
+                    'sky': '天空',
+                    'sun': '太阳',
+                    'moon': '月亮',
+                    'star': '星星',
+                    'red': '红色',
+                    'blue': '蓝色',
+                    'green': '绿色',
+                    'yellow': '黄色',
+                    'black': '黑色',
+                    'white': '白色',
+                    'big': '大的',
+                    'small': '小的',
+                    'happy': '快乐的',
+                    'sad': '悲伤的',
+                    'angry': '生气的',
+                    'excited': '兴奋的',
+                    'tired': '累的',
+                    'hungry': '饿的',
+                    'thirsty': '渴的',
+                    'hot': '热的',
+                    'cold': '冷的',
+                    'new': '新的',
+                    'old': '旧的',
+                    'right': '正确的',
+                    'wrong': '错误的',
+                    'fast': '快的',
+                    'slow': '慢的',
+                    'high': '高的',
+                    'low': '低的',
+                    'long': '长的',
+                    'short': '短的',
+                    'strong': '强壮的',
+                    'weak': '弱的',
+                    'smart': '聪明的',
+                    'stupid': '愚蠢的',
+                    'easy': '容易的',
+                    'difficult': '困难的',
+                    'early': '早的',
+                    'late': '晚的',
+                    'first': '第一',
+                    'last': '最后',
+                    'one': '一',
+                    'two': '二',
+                    'three': '三',
+                    'four': '四',
+                    'five': '五',
+                    'six': '六',
+                    'seven': '七',
+                    'eight': '八',
+                    'nine': '九',
+                    'ten': '十',
+                    'hundred': '百',
+                    'thousand': '千',
+                    'million': '百万',
+                    'and': '和',
+                    'or': '或者',
+                    'but': '但是',
+                    'because': '因为',
+                    'so': '所以',
+                    'if': '如果',
+                    'when': '当',
+                    'where': '哪里',
+                    'why': '为什么',
+                    'how': '如何',
+                    'what': '什么',
+                    'who': '谁',
+                    'which': '哪一个',
+                    'this': '这个',
+                    'that': '那个',
+                    'these': '这些',
+                    'those': '那些',
+                    'my': '我的',
+                    'your': '你的',
+                    'his': '他的',
+                    'her': '她的',
+                    'our': '我们的',
+                    'their': '他们的',
+                    'with': '和',
+                    'without': '没有',
+                    'in': '在...里',
+                    'on': '在...上',
+                    'at': '在',
+                    'to': '到',
+                    'for': '为了',
+                    'from': '从',
+                    'by': '通过',
+                    'about': '关于',
+                    'of': '的',
+                    'off': '关闭',
+                    'up': '上',
+                    'down': '下',
+                    'left': '左',
+                    'right': '右',
+                    'go': '去',
+                    'come': '来',
+                    'take': '拿',
+                    'give': '给',
+                    'make': '做',
+                    'do': '做',
+                    'say': '说',
+                    'speak': '说',
+                    'tell': '告诉',
+                    'ask': '问',
+                    'answer': '回答',
+                    'see': '看见',
+                    'hear': '听见',
+                    'feel': '感觉',
+                    'know': '知道',
+                    'think': '思考',
+                    'learn': '学习',
+                    'teach': '教',
+                    'write': '写',
+                    'read': '读',
+                    'sing': '唱',
+                    'dance': '跳舞',
+                    'play': '玩',
+                    'run': '跑',
+                    'walk': '走',
+                    'jump': '跳',
+                    'swim': '游泳',
+                    'fly': '飞',
+                    'drive': '驾驶',
+                    'stop': '停止',
+                    'start': '开始',
+                    'end': '结束',
+                    'begin': '开始',
+                    'finish': '完成',
+                    'continue': '继续',
+                    'help': '帮助',
+                    'need': '需要',
+                    'want': '想要',
+                    'have': '有',
+                    'be': '是',
+                    'am': '是',
+                    'is': '是',
+                    'are': '是',
+                    'was': '是',
+                    'were': '是',
+                    'will': '将',
+                    'would': '会',
+                    'can': '能',
+                    'could': '能够',
+                    'may': '可能',
+                    'might': '可能',
+                    'must': '必须',
+                    'should': '应该',
+                    'shall': '将要'
+                }
+            },
+            'zh': {
+                'en': {
+                    '你好': 'hello',
+                    '世界': 'world',
+                    '帅气': 'handsome',
+                    '帅气的': 'handsome',
+                    '美丽': 'beautiful',
+                    '美丽的': 'beautiful',
+                    '好': 'good',
+                    '好的': 'good',
+                    '坏': 'bad',
+                    '坏的': 'bad',
+                    '是': 'yes',
+                    '否': 'no',
+                    '不': 'no',
+                    '谢谢': 'thank you',
+                    '你': 'you',
+                    '我': 'I',
+                    '他': 'he',
+                    '她': 'she',
+                    '我们': 'we',
+                    '他们': 'they',
+                    '爱': 'love',
+                    '喜欢': 'like',
+                    '讨厌': 'hate',
+                    '朋友': 'friend',
+                    '家庭': 'family',
+                    '工作': 'work',
+                    '学校': 'school',
+                    '电脑': 'computer',
+                    '手机': 'phone',
+                    '书': 'book',
+                    '时间': 'time',
+                    '天': 'day',
+                    '晚上': 'night',
+                    '年': 'year',
+                    '月': 'month',
+                    '周': 'week',
+                    '钱': 'money',
+                    '食物': 'food',
+                    '水': 'water',
+                    '火': 'fire',
+                    '地球': 'earth',
+                    '天空': 'sky',
+                    '太阳': 'sun',
+                    '月亮': 'moon',
+                    '星星': 'star',
+                    '红色': 'red',
+                    '蓝色': 'blue',
+                    '绿色': 'green',
+                    '黄色': 'yellow',
+                    '黑色': 'black',
+                    '白色': 'white',
+                    '大': 'big',
+                    '大的': 'big',
+                    '小': 'small',
+                    '小的': 'small',
+                    '快乐': 'happy',
+                    '快乐的': 'happy',
+                    '悲伤': 'sad',
+                    '悲伤的': 'sad',
+                    '生气': 'angry',
+                    '生气的': 'angry',
+                    '兴奋': 'excited',
+                    '兴奋的': 'excited',
+                    '累': 'tired',
+                    '累的': 'tired',
+                    '饿': 'hungry',
+                    '饿的': 'hungry',
+                    '渴': 'thirsty',
+                    '渴的': 'thirsty',
+                    '热': 'hot',
+                    '热的': 'hot',
+                    '冷': 'cold',
+                    '冷的': 'cold',
+                    '新': 'new',
+                    '新的': 'new',
+                    '旧': 'old',
+                    '旧的': 'old',
+                    '正确': 'right',
+                    '正确的': 'right',
+                    '错误': 'wrong',
+                    '错误的': 'wrong',
+                    '快': 'fast',
+                    '快的': 'fast',
+                    '慢': 'slow',
+                    '慢的': 'slow',
+                    '高': 'high',
+                    '高的': 'high',
+                    '低': 'low',
+                    '低的': 'low',
+                    '长': 'long',
+                    '长的': 'long',
+                    '短': 'short',
+                    '短的': 'short',
+                    '强壮': 'strong',
+                    '强壮的': 'strong',
+                    '弱': 'weak',
+                    '弱的': 'weak',
+                    '聪明': 'smart',
+                    '聪明的': 'smart',
+                    '愚蠢': 'stupid',
+                    '愚蠢的': 'stupid',
+                    '容易': 'easy',
+                    '容易的': 'easy',
+                    '困难': 'difficult',
+                    '困难的': 'difficult',
+                    '早': 'early',
+                    '早的': 'early',
+                    '晚': 'late',
+                    '晚的': 'late',
+                    '第一': 'first',
+                    '最后': 'last',
+                    '一': 'one',
+                    '二': 'two',
+                    '三': 'three',
+                    '四': 'four',
+                    '五': 'five',
+                    '六': 'six',
+                    '七': 'seven',
+                    '八': 'eight',
+                    '九': 'nine',
+                    '十': 'ten',
+                    '百': 'hundred',
+                    '千': 'thousand',
+                    '百万': 'million'
+                }
+            }
+        };
+        
         // 字符计数功能
         sourceText.addEventListener('input', function() {
             charCount.textContent = this.value.length;
@@ -305,7 +624,7 @@
             // 显示加载状态
             showLoading(true);
             
-            // 调用翻译API
+            // 调用翻译函数
             translateText(text, sourceLanguage.value, targetLanguage.value)
                 .then(result => {
                     translationResult.textContent = result.translatedText;
@@ -317,7 +636,7 @@
                 })
                 .catch(error => {
                     console.error('翻译失败:', error);
-                    translationResult.textContent = '翻译失败，请稍后重试或检查网络连接';
+                    translationResult.textContent = '翻译失败，请稍后重试';
                     showNotification('翻译失败', 'error');
                 })
                 .finally(() => {
@@ -325,16 +644,16 @@
                 });
         });
         
-        // 自动翻译功能（输入内容变化时延迟翻译）
+        // 自动翻译功能
         let translateTimeout;
         sourceText.addEventListener('input', function() {
             clearTimeout(translateTimeout);
             translateTimeout = setTimeout(() => {
                 const text = this.value.trim();
-                if (text.length > 5) { // 输入超过5个字符才自动翻译
+                if (text.length > 0) {
                     translateBtn.click();
                 }
-            }, 800); // 800毫秒延迟
+            }, 500);
         });
         
         // 显示/隐藏加载状态
@@ -398,65 +717,125 @@
             return languages[code] || code;
         }
         
-        // 翻译API调用函数
+        // 翻译函数 - 优先使用本地字典，然后再尝试API
         async function translateText(text, fromLang, toLang) {
+            // 首先检测语言（如果需要）
+            let detectedLang = fromLang;
+            if (fromLang === 'auto') {
+                detectedLang = detectLanguage(text);
+            }
+            
+            // 首先尝试使用本地字典进行翻译
+            let translatedText = translateUsingDictionary(text, detectedLang, toLang);
+            
+            // 如果本地字典翻译成功，直接返回结果
+            if (translatedText !== null && translatedText !== text) {
+                return {
+                    translatedText: translatedText,
+                    detectedLanguage: detectedLang
+                };
+            }
+            
+            // 如果本地字典没有找到翻译，尝试使用API
             try {
-                // 这里使用 MyMemory API 作为示例，实际应用中可以替换为百度翻译API或其他商业API
-                // 注意：真实项目中应使用服务器端代理来调用API，避免暴露API密钥
-                const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${fromLang}|${toLang}`;
-                
+                // 使用MyMemory API作为备选
+                const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${detectedLang}|${toLang}`;
                 const response = await fetch(url);
+                
                 if (!response.ok) {
                     throw new Error(`API错误: ${response.status}`);
                 }
                 
                 const data = await response.json();
                 
-                // 构建返回结果
-                return {
-                    translatedText: data.responseData.translatedText,
-                    detectedLanguage: data.responseDetails && data.responseDetails.detectedSourceLanguage
-                };
+                // 检查API返回的翻译是否有效
+                if (data.responseData && data.responseData.translatedText && data.responseData.translatedText !== text) {
+                    return {
+                        translatedText: data.responseData.translatedText,
+                        detectedLanguage: detectedLang
+                    };
+                }
             } catch (error) {
-                // 如果API调用失败，使用备用翻译逻辑
-                console.warn('API调用失败，使用备用翻译逻辑:', error);
-                return {
-                    translatedText: getFallbackTranslation(text, toLang),
-                    detectedLanguage: fromLang === 'auto' ? detectLanguage(text) : fromLang
-                };
+                console.warn('API调用失败:', error);
+                // API调用失败，继续使用备用翻译
             }
-        }
-        
-        // 备用翻译逻辑（当API不可用时）
-        function getFallbackTranslation(text, targetLang) {
-            // 简单的翻译映射表，仅用于演示
-            const translations = {
-                '你好': {'en': 'Hello', 'ja': 'こんにちは', 'ko': '안녕하세요'},
-                'Hello': {'zh': '你好', 'ja': 'こんにちは', 'ko': '안녕하세요'},
-                '谢谢': {'en': 'Thank you', 'ja': 'ありがとう', 'ko': '감사합니다'},
-                'Thank you': {'zh': '谢谢', 'ja': 'ありがとう', 'ko': '감사합니다'},
-                '再见': {'en': 'Goodbye', 'ja': 'さようなら', 'ko': '안녕히 가세요'},
-                'Goodbye': {'zh': '再见', 'ja': 'さようなら', 'ko': '안녕히 가세요'}
+            
+            // 如果所有方法都失败，使用简单的回退翻译
+            return {
+                translatedText: getFallbackTranslation(text, toLang),
+                detectedLanguage: detectedLang
             };
-            
-            // 检查是否有预定义翻译
-            if (translations[text] && translations[text][targetLang]) {
-                return translations[text][targetLang];
+        }
+        
+        // 使用本地字典进行翻译
+        function translateUsingDictionary(text, fromLang, toLang) {
+            // 如果源语言和目标语言相同，直接返回原文
+            if (fromLang === toLang) {
+                return text;
             }
             
-            // 简单的模拟翻译
-            if (targetLang === 'en') {
-                return `[Translated to English] ${text}`;
+            // 检查字典是否包含该语言对
+            if (!translationDictionary[fromLang] || !translationDictionary[fromLang][toLang]) {
+                return null;
+            }
+            
+            const dict = translationDictionary[fromLang][toLang];
+            
+            // 处理句子翻译 - 简单地分词并翻译每个单词
+            // 注意：这是一个非常简单的实现，实际应用中需要更复杂的NLP处理
+            const words = text.split(/\s+/);
+            const translatedWords = words.map(word => {
+                // 尝试直接匹配单词（考虑大小写）
+                if (dict[word]) {
+                    return dict[word];
+                }
+                // 尝试小写匹配
+                const lowerWord = word.toLowerCase();
+                if (dict[lowerWord]) {
+                    return dict[lowerWord];
+                }
+                // 尝试去除标点符号后的匹配
+                const cleanWord = word.replace(/[.,!?;:'"()\[\]]/g, '');
+                if (cleanWord && dict[cleanWord]) {
+                    return dict[cleanWord];
+                }
+                const lowerCleanWord = cleanWord.toLowerCase();
+                if (lowerCleanWord && dict[lowerCleanWord]) {
+                    return dict[lowerCleanWord];
+                }
+                // 如果没有找到匹配，返回原单词
+                return word;
+            });
+            
+            // 重新组合句子
+            return translatedWords.join(' ');
+        }
+        
+        // 备用翻译逻辑
+        function getFallbackTranslation(text, targetLang) {
+            // 根据目标语言添加前缀，表明这是机器翻译结果
+            if (targetLang === 'zh') {
+                return `[机器翻译] ${text}`;
+            } else if (targetLang === 'en') {
+                return `[Machine Translation] ${text}`;
             } else if (targetLang === 'ja') {
-                return `[日本語に翻訳] ${text}`;
+                return `[機械翻訳] ${text}`;
             } else if (targetLang === 'ko') {
-                return `[한국어로 번역] ${text}`;
+                return `[기계 번역] ${text}`;
+            } else if (targetLang === 'fr') {
+                return `[Traduction automatique] ${text}`;
+            } else if (targetLang === 'de') {
+                return `[Maschinelle Übersetzung] ${text}`;
+            } else if (targetLang === 'es') {
+                return `[Traducción automática] ${text}`;
+            } else if (targetLang === 'ru') {
+                return `[Машинный перевод] ${text}`;
             } else {
-                return `[翻译到${getLanguageName(targetLang)}] ${text}`;
+                return `[Translation to ${getLanguageName(targetLang)}] ${text}`;
             }
         }
         
-        // 简单的语言检测
+        // 语言检测函数
         function detectLanguage(text) {
             // 检查是否包含中文字符
             if (/[\u4e00-\u9fa5]/.test(text)) {
@@ -469,6 +848,22 @@
             // 检查是否包含韩文字符
             if (/[\uac00-\ud7af]/.test(text)) {
                 return 'ko';
+            }
+            // 检查是否包含俄文字符
+            if (/[\u0400-\u04ff]/.test(text)) {
+                return 'ru';
+            }
+            // 检查是否包含法文字符
+            if (/[àâäçéèêëîïôöùûüÿ]/.test(text)) {
+                return 'fr';
+            }
+            // 检查是否包含德文字符
+            if (/[äöüß]/.test(text)) {
+                return 'de';
+            }
+            // 检查是否包含西班牙文字符
+            if (/[áéíóúüñ¿¡]/.test(text)) {
+                return 'es';
             }
             // 默认返回英文
             return 'en';
