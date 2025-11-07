@@ -1,10 +1,10 @@
-\u003c!DOCTYPE html\u003e
-\u003chtml lang="zh-CN"\u003e
-\u003chead\u003e
-    \u003cmeta charset="UTF-8"\u003e
-    \u003cmeta name="viewport" content="width=device-width, initial-scale=1.0"\u003e
-    \u003ctitle\u003eMIMI翻译器\u003c/title\u003e
-    \u003cstyle\u003e
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIMI翻译器</title>
+    <style>
         /* 全局样式 */
         * {
             margin: 0;
@@ -165,53 +165,56 @@
                 flex-wrap: wrap;
             }
         }
-    \u003c/style\u003e
-\u003c/head\u003e
-\u003cbody\u003e
-    \u003ch1 class="title"\u003eMIMI翻译器\u003c/h1\u003e
+    </style>
+</head>
+<body>
+    <h1 class="title">MIMI翻译器</h1>
     
-    \u003cdiv class="translator-container"\u003e
+    <div class="translator-container">
+        <!-- 输入部分 -->
+        <div class="input-section">
+            <div class="language-selector">
+                <label for="source-lang">源语言:</label>
+                <select id="source-lang">
+                    <option value="zh">中文</option>
+                    <option value="en">英语</option>
+                    <option value="ja">日语</option>
+                    <option value="ko">韩语</option>
+                    <option value="fr">法语</option>
+                    <option value="de">德语</option>
+                </select>
+            </div>
+            <textarea id="source-text" placeholder="请输入要翻译的文本..."></textarea>
+        </div>
         
-        \u003c!-- 输入部分 --\u003e
-        \u003cdiv class="input-section"\u003e
-            \u003cdiv class="language-selector"\u003e
-                \u003clabel for="source-lang"\u003e源语言:\u003c/label\u003e
-                \u003cselect id="source-lang"\u003e
-                    \u003coption value="zh"\u003e中文\u003c/option\u003e
-                    \u003coption value="en"\u003e英语\u003c/option\u003e
-                    \u003coption value="ja"\u003e日语\u003c/option\u003e
-                    \u003coption value="ko"\u003e韩语\u003c/option\u003e
-                    \u003coption value="fr"\u003e法语\u003c/option\u003e
-                    \u003coption value="de"\u003e德语\u003c/option\u003e
-                \u003c/select\u003e
-            \u003c/div\u003e
-            \u003ctextarea id="source-text" placeholder="请输入要翻译的文本..."\u003e\u003c/textarea\u003e
-        \u003c/div\u003e
+        <!-- 控制按钮 -->
+        <div class="controls">
+            <button class="translate-btn" onclick="translateText()">翻译</button>
+            <button class="swap-btn" onclick="swapLanguages()">交换语言</button>
+            <button class="clear-btn" onclick="clearText()">清空</button>
+        </div>
         
-        \u003c!-- 控制按钮 --\u003cdiv class="controls"\u003e
-            \u003cbutton class="translate-btn" onclick="translateText()"\u003e翻译\u003c/button\u003e
-            \u003cbutton class="swap-btn" onclick="swapLanguages()"\u003e交换语言\u003c/button\u003e
-            \u003cbutton class="clear-btn" onclick="clearText()"\u003e清空\u003c/button\u003e
-        \u003c/div\u003e
+        <!-- 加载状态 -->
+        <div class="loading" id="loading">正在翻译...</div>
         
-        \u003c!-- 加载状态 --\u003cdiv class="loading" id="loading"\u003e正在翻译...\u003c/div\u003e
-        \u003c!-- 输出部分 --\u003cdiv class="output-section"\u003e
-            \u003cdiv class="language-selector"\u003e
-                \u003clabel for="target-lang"\u003e目标语言:\u003c/label\u003e
-                \u003cselect id="target-lang"\u003e
-                    \u003coption value="en"\u003e英语\u003c/option\u003e
-                    \u003coption value="zh"\u003e中文\u003c/option\u003e
-                    \u003coption value="ja"\u003e日语\u003c/option\u003e
-                    \u003coption value="ko"\u003e韩语\u003c/option\u003e
-                    \u003coption value="fr"\u003e法语\u003c/option\u003e
-                    \u003coption value="de"\u003e德语\u003c/option\u003e
-                \u003c/select\u003e
-            \u003c/div\u003e
-            \u003ctextarea id="target-text" placeholder="翻译结果将显示在这里..." readonly\u003e\u003c/textarea\u003e
-        \u003c/div\u003e
-    \u003c/div\u003e
+        <!-- 输出部分 -->
+        <div class="output-section">
+            <div class="language-selector">
+                <label for="target-lang">目标语言:</label>
+                <select id="target-lang">
+                    <option value="en">英语</option>
+                    <option value="zh">中文</option>
+                    <option value="ja">日语</option>
+                    <option value="ko">韩语</option>
+                    <option value="fr">法语</option>
+                    <option value="de">德语</option>
+                </select>
+            </div>
+            <textarea id="target-text" placeholder="翻译结果将显示在这里..." readonly></textarea>
+        </div>
+    </div>
     
-    \u003cscript\u003e
+    <script>
         // 翻译功能
         function translateText() {
             const sourceText = document.getElementById('source-text').value;
@@ -227,8 +230,7 @@
             
             loading.style.display = 'block';
             
-            // 使用本地翻译逻辑避免Failed to fetch问题
-            // 这里使用简单的模拟翻译，实际使用时可以替换为其他可靠的API
+            // 模拟翻译过程
             setTimeout(() => {
                 // 简单的模拟翻译逻辑
                 if (sourceLang === 'zh' && targetLang === 'en') {
@@ -270,6 +272,6 @@
             document.getElementById('source-text').value = '';
             document.getElementById('target-text').value = '';
         }
-    \u003c/script\u003e
-\u003c/body\u003e
-\u003c/html\u003e
+    </script>
+</body>
+</html>
